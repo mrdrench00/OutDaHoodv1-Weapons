@@ -1,10 +1,65 @@
-<div class="tier-select">
-  <button onclick="spinWeapon('T1')">Tier 1</button>
-  <button onclick="spinWeapon('T1.5')">Tier 1.5</button>
-  <button onclick="spinWeapon('T2')">Tier 2</button>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OutDaHoodv1 Weapons Tier Spin</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>OutDaHoodv1 Weapons Tier Spin</h1>
+      <p>Based on WindyCityV5 / OutDaHoodv1 tiers</p>
+    </header>
 
-<div id="result"></div>
+    <section class="tier-section">
+      <h2>Select Tier</h2>
+      <div class="tier-buttons">
+        <button class="tier-btn" data-tier="T1">Tier 1</button>
+        <button class="tier-btn" data-tier="T1.5">Tier 1.5</button>
+        <button class="tier-btn" data-tier="T2">Tier 2</button>
+        <button class="tier-btn" data-tier="T3">Tier 3</button>
+        <button class="tier-btn" data-tier="T4">Tier 4</button>
+      </div>
+      <button id="spinWeapon" class="spin-btn">Spin Weapon</button>
+      <div id="weaponResult" class="result-card"></div>
+    </section>
 
-<button onclick="spinDrugs('T1')">Spin Drugs</button>
-<div id="drugResult"></div>
+    <section class="drug-section">
+      <h2>Drug Randomizer</h2>
+      <p>Tier‑based drug amounts (example logic).</p>
+      <div class="tier-buttons">
+        <button class="drug-btn" data-tier="T1">Tier 1</button>
+        <button class="drug-btn" data-tier="T1.5">Tier 1.5</button>
+        <button class="drug-btn" data-tier="T2">Tier 2</button>
+        <button class="drug-btn" data-tier="T3">Tier 3</button>
+        <button class="drug-btn" data-tier="T4">Tier 4</button>
+      </div>
+      <button id="spinDrugs" class="spin-btn">Spin Drugs</button>
+      <div id="drugResult" class="result-card"></div>
+    </section>
+
+    <section class="faction-section">
+      <h2>Faction Drop Simulator</h2>
+      <p>Simulate drops for gangs / factions.</p>
+      <div class="faction-select">
+        <select id="faction">
+          <option value="hood">Hood Gang</option>
+          <option value="cartel">Cartel</option>
+          <option value="police">Police</option>
+          <option value="custom">Custom Faction</option>
+        </select>
+      </div>
+      <button id="spinFaction" class="spin-btn">Simulate Drop</button>
+      <div id="factionResult" class="result-card"></div>
+    </section>
+
+    <footer>
+      <p>OutDaHoodv1 / WindyCityV5 Weapons Tools</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
