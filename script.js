@@ -46,7 +46,7 @@ document.getElementById("spinWeapon").addEventListener("click", () => {
     const card = document.createElement("div");
     card.className = "weapon-card";
     card.innerHTML = `
-      <img src="icons/weapons/${file}" alt="${file}">
+    <img src="icons/weapons/${file}" alt="${file}">
       <h3>${file.replace(".png", "").replace(/_/g, " ").toUpperCase()}</h3>
     `;
     resultsDiv.appendChild(card);
