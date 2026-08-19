@@ -1,3 +1,21 @@
+// -------------------------------
+// Tier Selection
+// -------------------------------
+
+let selectedWeaponTier = "T1";
+
+document.querySelectorAll(".tier-card").forEach(card => {
+  card.addEventListener("click", () => {
+    document.querySelectorAll(".tier-card").forEach(c => c.classList.remove("active"));
+    card.classList.add("active");
+    selectedWeaponTier = card.dataset.tier;
+  });
+});
+
+// -------------------------------
+// Weapon Lists (Your Tiers)
+// -------------------------------
+
 const weapons = {
   "T1": [
     "G17",
@@ -10,8 +28,9 @@ const weapons = {
     "GLOCK 41",
     "FN Five-seveN",
     "TAN G19",
-    "TAN 1911",
+    "TAN 1911"
   ],
+
   "T1.5": [
     "ILLEGAL GLOCK 17",
     "TEC 9 W STRAP",
@@ -21,8 +40,9 @@ const weapons = {
     "MIDAS GLOCK",
     "G19 FDE GEN4",
     "G19X CUSTOM",
-    "G45 CUSTOM",
+    "G45 CUSTOM"
   ],
+
   "T2": [
     "LB TAN ARP",
     "BLACK ARP",
@@ -37,8 +57,9 @@ const weapons = {
     "SEMI-4 INCH ARP BLUE",
     "G20 GEN5 SWITCH",
     "G23 GEN5 SWITCH",
-    "G27 GEN5 SWITCH",
+    "G27 GEN5 SWITCH"
   ],
+
   "T3": [
     "RED DRAG ARP",
     "KRISS VECTOR",
@@ -47,8 +68,9 @@ const weapons = {
     "G40 GEN4 INCOGNITO",
     "SEMI-MICRO DRACO",
     "AR15 CUSTOM",
-    "BLUE GLOCK SWITCH",
+    "BLUE GLOCK SWITCH"
   ],
+
   "T4": [
     "ILLEGAL MICRO DRACO",
     "4 INCH ARP FULL AUTOMATIC",
@@ -57,98 +79,59 @@ const weapons = {
     "RED DRAG M4A1",
     "BLACK SCAR",
     "DESERET MK18",
-    "H&K P30L",
-  ],
+    "H&K P30L"
+  ]
 };
 
-let selectedWeaponTier = "T1";
-let selectedDrugTier = "T1";
+// -------------------------------
+// Helper: Format Weapon Filename
+// -------------------------------
 
-const weaponResult = document.getElementById("weaponResult");
-const drugResult = document.getElementById("drugResult");
-const factionResult = document.getElementById("factionResult");
-
-function pickRandom(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+function formatWeaponFilename(name) {
+  return name
+    .toLowerCase()
+    .replace(/ /g, "_")
+    .replace(/-/g, "_")
+    .replace(/\./g, "")
+    + ".png";
 }
 
-function showResult(el, text) {
-  el.textContent = text;
-  el.classList.add("show");
-}
-
-document.querySelectorAll(".tier-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".tier-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    selectedWeaponTier = btn.dataset.tier;
-  });
-});
-
-document.querySelectorAll(".drug-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".drug-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    selectedDrugTier = btn.dataset.tier;
-  });
-});
+// -------------------------------
+// Spin Button → 4 Random Weapons
+// -------------------------------
 
 document.getElementById("spinWeapon").addEventListener("click", () => {
   const list = weapons[selectedWeaponTier];
+
   if (!list || list.length === 0) {
-    showResult(weaponResult, "No weapons found for this tier.");
+    alert("No weapons found for this tier.");
     return;
   }
-  const w = pickRandom(list);
-  showResult(weaponResult, `Tier ${selectedWeaponTier} → ${w}`);
-});
 
-document.getElementById("spinDrugs").addEventListener("click", () => {
-  let min, max;
-  switch (selectedDrugTier) {
-    case "T1":
-      min = 50; max = 100;
-      break;
-    case "T1.5":
-      min = 75; max = 130;
-      break;
-    case "T2":
-      min = 100; max = 180;
-      break;
-    case "T3":
-      min = 150; max = 220;
-      break;
-    case "T4":
-      min = 200; max = 300;
-      break;
-    default:
-      min = 50; max = 100;
-  }
-  const amount = Math.floor(Math.random() * (max - min + 1)) + min;
-  showResult(drugResult, `Tier ${selectedDrugTier} → ${amount} drugs`);
-});
-
-document.getElementById("spinFaction").addEventListener("click", () => {
-  const faction = document.getElementById("faction").value;
-  const tierKeys = Object.keys(weapons);
-  const randomTier = pickRandom(tierKeys);
-  const w = pickRandom(weapons[randomTier]);
-
-  let label;
-  switch (faction) {
-    case "hood": label = "Hood Gang"; break;
-    case "cartel": label = "Cartel"; break;
-    case "police": label = "Police"; break;
-    default: label = "Custom Faction"; break;
+  // Pick 4 random weapons
+  const picks = [];
+  for (let i = 0; i < 4; i++) {
+    picks.push(list[Math.floor(Math.random() * list.length)]);
   }
 
-  showResult(
-    factionResult,
-    `${label} drop → Tier ${randomTier} | ${w}`
-  );
-});
+  const resultsDiv = document.getElementById("weaponResults");
+  resultsDiv.innerHTML = ""; // Clear old results
 
-// set defaults active
-document.querySelector('.tier-btn[data-tier="T1"]').classList.add("active");
-document.querySelector('.drug-btn[data-tier="T1"]').classList.add("active");
+  picks.forEach(weapon => {
+    const filename = formatWeaponFilename(weapon);
+
+    const card = document.createElement("div");
+    card.className = "weapon-card";
+
+    card.innerHTML = `
+      <img src="icons/weapons/${filename}" alt="${weapon}">
+      <h3>${weapon}</h3>
+    `;
+
+    resultsDiv.appendChild(card);
+
+    // Animation
+    setTimeout(() => card.classList.add("show"), 50);
+  });
+});
 
