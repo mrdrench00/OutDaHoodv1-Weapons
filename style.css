@@ -1,3 +1,57 @@
+.body {
+  background: #000;
+  color: #eee;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.tier-section h2 {
+  color: #00e5ff;
+  text-shadow: 0 0 10px #00e5ff;
+  margin-top: 20px;
+}
+
+.tier-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.tier-card {
+  background: #111;
+  border: 2px solid #333;
+  border-radius: 10px;
+  padding: 10px;
+  width: 120px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.tier-card img {
+  width: 60px;
+  height: 60px;
+}
+
+.tier-card:hover,
+.tier-card.active {
+  border-color: #00e5ff;
+  box-shadow: 0 0 15px #00e5ff;
+  transform: scale(1.05);
+}
+
+.spin-btn {
+  padding: 12px 20px;
+  background: #00e5ff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #000;
+}
+
 .weapon-results {
   display: flex;
   justify-content: center;
@@ -29,6 +83,13 @@
   border-radius: 10px;
   box-shadow: 0 0 20px #00e5ff60;
 }
+
+.weapon-card h3 {
+  color: #00e5ff;
+  margin-top: 10px;
+  text-shadow: 0 0 10px #00e5ff;
+}
+
 
 .weapon-card h3 {
   color: #00e5ff;
