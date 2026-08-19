@@ -1,57 +1,100 @@
-// Tier selection
-let selectedWeaponTier = "T1";
+let selectedTier = "T1";
 
-document.querySelectorAll(".tier-card").forEach(card => {
-  card.addEventListener("click", () => {
-    document.querySelectorAll(".tier-card").forEach(c => c.classList.remove("active"));
-    card.classList.add("active");
-    selectedWeaponTier = card.dataset.tier;
+// Tier selection
+document.querySelectorAll(".tier-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tier-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    selectedTier = btn.dataset.tier;
   });
 });
 
-// Weapon lists
+// YOUR REAL FILENAMES — EXACTLY AS THEY ARE IN YOUR REPO
 const weapons = {
-  "T1": ["G17", "G17 GEN3", "G19 GEN4", "PSA DAGGER", "GLOCK 21", "FN Five-seveN", "TAN G19", "TAN 1911"],
-  "T1.5": ["ILLEGAL GLOCK 17", "TEC 9 W STRAP", "RUGER SR40", "MG GLOCK", "GLOCK BEAM SWITCH", "MIDAS GLOCK", "G19 FDE GEN4", "G19X CUSTOM", "G45 CUSTOM"],
-  "T2": ["LB TAN ARP", "BLACK ARP", "TAN ARP", "SEMI 3INCH ARP CUSTOM TAN", "FN509", "G17 SAI SWITCH", "G43X SWITCH", "G40 SWITCH CUSTOM", "G40 GEN4 INCOGNITO", "G40 CAMO SWITCH", "SEMI 4INCH ARP BLUE", "G20 GEN5 SWITCH", "G23 GEN5 SWITCH", "G27 GEN5 SWITCH"],
-  "T3": ["RED DRAG ARP", "KRISS VECTOR", "SEMI 300BLK CUSTOM", "SEMI DRACO PISTOL", "SEMI MICRO DRACO", "AR15 CUSTOM", "BLUE GLOCK SWITCH"],
-  "T4": ["ILLEGAL MICRO DRACO", "4INCH ARP FULL AUTO", "4INCH ARP BINARY TRIGGER", "AR15", "RED DRAG M4A1", "BLACK SCAR", "DESERET MK18", "HK P30L"]
+  "T1": [
+    "WEAPON_RMG17GEN3.png",
+    "WEAPON_RMG17.png",
+    "WEAPON_RMG19FDEG.png",
+    "WEAPON_RMPSADAG.png",
+    "WEAPON_GLOCK21.png",
+    "WEAPON_FN57.png",
+    "WEAPON_TGLOCK19.png",
+    "WEAPON_T1911.png"
+  ],
+
+  "T1.5": [
+    "WEAPON_ILLGLOCK17.png",
+    "WEAPON_TEC9S.png",
+    "WEAPON_SR40.png",
+    "WEAPON_MGGLOCK.png",
+    "WEAPON_GLOCKBEAM.png",
+    "WEAPON_MIDASGLOCK.png",
+    "WEAPON_RMG19FDEG.png",
+    "WEAPON_RMG19XCUS.png",
+    "WEAPON_RMG45CUST.png"
+  ],
+
+  "T2": [
+    "WEAPON_LBTARP.png",
+    "WEAPON_BLACKARP.png",
+    "WEAPON_TARP.png",
+    "WEAPON_RM3INCHCU.png",
+    "WEAPON_RMFN509.png",
+    "WEAPON_RMG17CSTM.png",
+    "WEAPON_RMG43XSWI.png",
+    "WEAPON_RMG40CSTM.png",
+    "WEAPON_RMG40INCO.png",
+    "WEAPON_RMG40CAM.png",
+    "WEAPON_RM4INCHAR.png",
+    "WEAPON_RMG20GEN5.png",
+    "WEAPON_RMG23GEN5.png",
+    "WEAPON_RMG27GEN5.png"
+  ],
+
+  "T3": [
+    "WEAPON_REDARP.png",
+    "WEAPON_KRISSVECTOR.png",
+    "WEAPON_RM300BLKC.png",
+    "WEAPON_RMDRACOPI.png",
+    "WEAPON_RMMICROD.png",
+    "WEAPON_RMAR15CUST.png",
+    "WEAPON_BLUEGLOCKS.png"
+  ],
+
+  "T4": [
+    "WEAPON_RMILLEGALD.png",
+    "WEAPON_RM4INCHFU.png",
+    "WEAPON_RM4INCHAR.png",
+    "WEAPON_RMAR15.png",
+    "WEAPON_REDM4A1.png",
+    "WEAPON_BLACKSCAR.png",
+    "WEAPON_DMK18.png",
+    "WEAPON_P30L.png"
+  ]
 };
 
-// Helper: format filenames
-function formatWeaponFilename(name) {
-  return name.toLowerCase().replace(/ /g, "_").replace(/-/g, "_").replace(/\./g, "") + ".png";
-}
-
-// Spin button → 4 random weapons
+// Spin button
 document.getElementById("spinWeapon").addEventListener("click", () => {
-  const list = weapons[selectedWeaponTier];
-  if (!list || list.length === 0) {
-    alert("No weapons found for this tier.");
-    return;
-  }
+  const list = weapons[selectedTier];
+  const resultsDiv = document.getElementById("weaponResults");
+  resultsDiv.innerHTML = "";
 
   const picks = [];
   for (let i = 0; i < 4; i++) {
     picks.push(list[Math.floor(Math.random() * list.length)]);
   }
 
-  const resultsDiv = document.getElementById("weaponResults");
-  resultsDiv.innerHTML = "";
-
-  picks.forEach(weapon => {
-    const filename = formatWeaponFilename(weapon);
+  picks.forEach(file => {
     const card = document.createElement("div");
     card.className = "weapon-card";
+
     card.innerHTML = `
-      <img src="icons/weapons/${filename}" alt="${weapon}">
-      <h3>${weapon}</h3>
+      <img src="icons/weapons/${file}" alt="${file}">
+      <h3>${file.replace("WEAPON_", "").replace(".png", "")}</h3>
     `;
+
     resultsDiv.appendChild(card);
     setTimeout(() => card.classList.add("show"), 50);
-  });
-});
-.add("show"), 50);
   });
 });
 
